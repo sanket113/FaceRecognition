@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CSV Data Insertion</title>
+</head>
+<body>
+  <h1>CSV Data Insertion</h1>
+
+  <table id="csv-data">
+    <!-- CSV data will be inserted here -->
+  </table>
+
+  <script>
+    function parseCSV(csvData) {
+      const rows = csvData.split('\n');
+      let tableHtml = '';
+
+      for (let i = 0; i < rows.length; i++) {
+        const rowData = rows[i].split(',');
+        const name = rowData[0];
+        const date = rowData[1];
+        const status = rowData[2];
+
+        if (name && date && status) {
+          tableHtml += `
+            <tr>
+              <td>${name}</td>
+              <td>${date}</td>
+              <td>${status}</td>
+            </tr>
+          `;
+        }
+      }
+
+      document.getElementById('csv-data').innerHTML = tableHtml;
+    }
+
+    fetch('C:\Users\Sanket Kembalkar\AppData\Local\Programs\Python\attendace\attendace\Attendance.csv')
+      .then(response => response.text())
+      .then(csvData => {
+        parseCSV(csvData);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  </script>
+</body>
+</html>
